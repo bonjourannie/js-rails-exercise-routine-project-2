@@ -63,4 +63,8 @@ class Routine {
             return Promise.resolve(Routine.all)
         }
     }
+
+    static findById(id){
+        return Routine.all.find(routine => routine.id == id)
+    }
 }
