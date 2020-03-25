@@ -46,5 +46,21 @@ class RoutineAPI {
 RoutineAPI.base_url = "http://localhost:3000"
 
 class Routine {
-    
+    constructor({id, title}) {
+        this.id = id
+        this.title = title
+    }
+
+    static getAll(){
+        if (Routine.all.length === 0) {
+            return RoutineAPI.getRoutines().then(routines => {
+                Routine.all = routines.map(routineAttributes =>
+                    new Routine(routineAttributes)
+                )
+                return Routine.all 
+            })
+        } else {
+            return Promise.resolve(Routine.all)
+        }
+    }
 }
