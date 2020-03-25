@@ -30,4 +30,16 @@ class RoutineAPI {
                 }
             })
     }
+
+    static createRoutine(routineAttributes) {
+        return fetch(`${RoutineAPI.base_url}/routines` {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+              'Accept': 'application/json'
+          },
+          body: JSON.stringify(routineAttributes)
+        })
+        .then(res => res.json())
+    }
 }
