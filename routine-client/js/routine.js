@@ -67,4 +67,16 @@ class Routine {
     static findById(id){
         return Routine.all.find(routine => routine.id == id)
     }
+
+    static create(routineAttributes) {
+        return RoutineAPI.createRoutine(routineAttributes)
+        .then(routineJSON => {
+            return new Routine(routineJSON).save()
+        })
+    }
+
+    save () {
+        Routine.all.push(this)
+        return this
+    }
 }
