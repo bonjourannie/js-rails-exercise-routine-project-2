@@ -32,7 +32,7 @@ class ExercisesController < ApplicationController
         end
     end
 
-    #DELETE /tracks/1
+    #DELETE /exercises/1
     def destroy
         @exercise.destroy 
     end

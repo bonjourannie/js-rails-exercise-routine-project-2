@@ -1,5 +1,5 @@
 class RoutinesController < ApplicationController
-    before_action :set_routine, only [:show, :update, :destroy]
+    before_action :set_routine, only: [:show, :update, :destroy]
 
     #GET /routines 
     def index
