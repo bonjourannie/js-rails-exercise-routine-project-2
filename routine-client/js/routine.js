@@ -30,16 +30,17 @@ class RoutineAPI {
                 }
             })
     }
-
     static createRoutine(routineAttributes) {
-        return fetch(`${RoutineAPI.base_url}/routines` {
+        return fetch(`${RoutineAPI.base_url}/routines`, {
           method: 'POST',
           headers: {
-              'Content-Type': 'application/json',
-              'Accept': 'application/json'
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
           },
           body: JSON.stringify(routineAttributes)
         })
-        .then(res => res.json())
-    }
+          .then(res => res.json())
+      }
 }
+
+RoutineAPI.base_url = "http://localhost:3000"
