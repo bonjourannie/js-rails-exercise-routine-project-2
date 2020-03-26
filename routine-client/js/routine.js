@@ -1,6 +1,6 @@
 class RoutineAPI {
     static getRoutines() {
-        return fetch(`${RoutineAPI.base_url}/routines`).then(res => res.json))
+        return fetch(`${RoutineAPI.base_url}/routines`).then(res => res.json)
     }
 
     static getRoutineShow(routineId){
@@ -79,4 +79,19 @@ class Routine {
         Routine.all.push(this)
         return this
     }
+
+
+getRoutineDetails(){
+    if(this.exercises().length === 0) {
+      return RoutineAPI.getRoutineShow(this.id)
+        .then(({exercises}) => {
+            exercises.map(exerciseAttributes => Exercise.findOrCreateBy(trackAttributes))
+          return this
+        })
+    } else {
+      return Promise.resolve(this)
+    }
+
+}
+
 }
