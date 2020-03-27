@@ -80,14 +80,11 @@ class Routine {
         return this
     }
 
-
-
-
     getRoutineDetails(){
         if(this.exercises().length === 0) {
         return RoutineAPI.getRoutineShow(this.id)
             .then(({exercises}) => {
-                exercises.map(exerciseAttributes => Exercise.findOrCreateBy(trackAttributes))
+                exercises.map(exerciseAttributes => Exercise.findOrCreateBy(exerciseAttributes))
             return this
             })
         } else {
@@ -111,10 +108,14 @@ class Routine {
       <a href="#0" class="ph2 ph0-ns pb3 link db">
         <h3 class="f5 f4-ns mb0 black-90">${this.title}</h3>
       </a>
-      <p><a href="#/routines/${this.id}" class="routineShow ba1 pa2 bg-moon-gray link" data-routineid="${this.id}">Album Details</a></p>
+      <p><a href="#/routines/${this.id}" class="routineShow ba1 pa2 bg-moon-gray link" data-routineid="${this.id}">Routine Details</a></p>
         `
         return article.outerHTML
     }
 }
 
 Routine.all = []
+
+class Exercise {
+
+}
