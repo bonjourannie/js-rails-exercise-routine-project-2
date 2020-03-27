@@ -119,3 +119,13 @@ Routine.all = []
 class Exercise {
 
 }
+
+class RoutinesPage {
+
+}
+
+class RoutinesShowPage {
+
+}
+
+// Event Listeners 
