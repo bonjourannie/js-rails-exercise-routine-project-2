@@ -128,7 +128,21 @@ class Exercise {
         let found = Exercise.all.find(exercise => exercise.id == attributes.id)
         return found ? found : new Exercise(attributes).save()
     }
+
+    save(){
+        Exercise.all.push(this)
+        return this
+    }
+
+    render() {
+        return `
+        <li>${this.name}</li>
+      `
+    }
+
 }
+
+Exercise.all = []
 
 class RoutinesPage {
 
