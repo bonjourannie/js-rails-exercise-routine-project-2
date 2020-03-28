@@ -117,7 +117,17 @@ class Routine {
 Routine.all = []
 
 class Exercise {
+    constructor ({id, name, duration, routine_id}) {
+        this.id = id 
+        this.name = name 
+        this.duration = duration
+        this.routine_id = routine_id 
+    }
 
+    static findOrCreateBy(attributes) {
+        let found = Exercise.all.find(exercise => exercise.id == attributes.id)
+        return found ? found : new Exercise(attributes).save()
+    }
 }
 
 class RoutinesPage {
