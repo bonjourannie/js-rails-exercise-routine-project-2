@@ -158,3 +158,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     })
 })
+
+const loadingGif = () => {
+    let loading = document.createElement('img')
+    loading.src = 'https://i.giphy.com/media/y1ZBcOGOOtlpC/giphy.webp'
+    return loading.outerHTML
+}
