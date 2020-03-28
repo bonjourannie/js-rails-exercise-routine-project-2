@@ -129,3 +129,32 @@ class RoutinesShowPage {
 }
 
 // Event Listeners 
+document.addEventListener('DOMContentLoaded', () => {
+    let root = document.getElementById('root')
+    root.innerHTML = loadingGif()
+    Routine.getAll().then(routine => {
+        root.innerHTML = new RoutinesPage(routines).render()
+    })
+    document.addEventListener('click', (e) => {
+        if(e.target.matches('.routineShow')) {
+            let routine = Routine.findById(e.target.data.routineId)
+            routine.getRoutineDetails().then(routine => {
+                root.innerHTML = new RoutinesShowPage(routine).render()
+            })
+        }
+        if (e.target.matches('.routineIndex')) {
+            root.innerHTML = new RoutinesPage(Routine.all).render()
+        }
+    })
+    document.addEventListener('submit', (e) => {
+        e.preventDefault()
+        if(e.target.matches('.addRoutine')) {
+            let formData = {}
+            e.target.querySelectorAll('input[type="text]').forEach(input => formData[input.id] = input.value)
+            Routine.create(formData)
+                .then(routine => {
+                    document.querySelector('#routines').insertAdjacentHTML('beforeend', routine.renderCard())
+                })
+        }
+    })
+})
