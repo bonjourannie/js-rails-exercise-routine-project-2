@@ -148,13 +148,7 @@ class RoutinesPage {
     constructor(routines){
         this.routines = routines
     }
-}
-
-class RoutineShowPage {
-    constructor(routine) {
-        this.routine = routine
-    }
-
+    
     renderForm() {
         return `
           <form class="addRoutine">
@@ -163,10 +157,34 @@ class RoutineShowPage {
               <label class="db">Title</label>
               <input type="text" name="title" id="title" />
             </p>
-            <input type="submit" value="Add Album" />
+            <input type="submit" value="Add Routine" />
           </form>
         `
-      }
+    }
+
+    renderList(){
+        return this.routines.map(routine => {
+            return routine.renderCard()
+        }).join('')
+    }
+
+    render() {
+        return `
+        <h1>Workout RoutinesPage</h1>
+        ${this.renderForm()}
+        <section id="routines">
+            ${this.renderList()}
+        </section>
+        `
+    }
+}
+
+class RoutineShowPage {
+    constructor(routine) {
+        this.routine = routine
+    }
+
+    
 }
 
 // Event Listeners 
