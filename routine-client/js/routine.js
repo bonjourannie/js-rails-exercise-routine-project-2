@@ -145,11 +145,28 @@ class Exercise {
 Exercise.all = []
 
 class RoutinesPage {
-
+    constructor(routines){
+        this.routines = routines
+    }
 }
 
-class RoutinesShowPage {
+class RoutineShowPage {
+    constructor(routine) {
+        this.routine = routine
+    }
 
+    renderForm() {
+        return `
+          <form class="addRoutine">
+            <h3>Add Routine</h3>
+            <p>
+              <label class="db">Title</label>
+              <input type="text" name="title" id="title" />
+            </p>
+            <input type="submit" value="Add Album" />
+          </form>
+        `
+      }
 }
 
 // Event Listeners 
