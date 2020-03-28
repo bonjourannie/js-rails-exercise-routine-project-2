@@ -148,7 +148,7 @@ class RoutinesPage {
     constructor(routines){
         this.routines = routines
     }
-    
+
     renderForm() {
         return `
           <form class="addRoutine">
@@ -182,6 +182,25 @@ class RoutinesPage {
 class RoutineShowPage {
     constructor(routine) {
         this.routine = routine
+    }
+
+    renderExerciseList(){
+        //iterate over exercises & add a list item to the ul for each one using appendChild
+        let ul = document.createElement('ul')
+        ul.id = "exerciseList"
+        this.routine.exercises().forEach(exercise => {
+            ul.insertAdjacentElement('beforeend', exercise.render())
+        })
+        return ul.outerHTML
+    }
+
+    render(){
+        return `
+        <div class="ph2 ph0-ns pb3 link db">
+          <h3 class="f5 f4-ns mb0 black-90">${this.routine.title}</h3>
+        </div>
+        ${this.renderExerciseList()}
+        `
     }
 
     
