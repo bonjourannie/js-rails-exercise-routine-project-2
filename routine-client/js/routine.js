@@ -1,6 +1,8 @@
+let base_url = "http://localhost:3000"
+
 class RoutineAPI {
     static getRoutines() {
-        return fetch(`${RoutineAPI.base_url}/routines`).then(res => res.json)
+        return fetch(`${base_url}/routines`).then(res => res.json)
     }
 
     static getRoutineShow(routineId){
@@ -43,7 +45,7 @@ class RoutineAPI {
       }
 }
 
-let base_url = "http://localhost:3000"
+
 
 class Routine {
     constructor({id, title}) {
