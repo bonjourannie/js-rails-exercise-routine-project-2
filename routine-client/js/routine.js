@@ -1,8 +1,8 @@
-let base_url = "http://localhost:3000"
+let base_url = "http://192.168.56.101:3000"
 
 class RoutineAPI {
     static getRoutines() {
-        return fetch(`${base_url}/routines`).then(res => res.json)
+        return fetch(`${base_url}/routines`).then(res => res.json())
     }
 
     static getRoutineShow(routineId){
@@ -43,6 +43,7 @@ class RoutineAPI {
         })
           .then(res => res.json())
       }
+    
 }
 
 
@@ -114,6 +115,7 @@ class Routine {
         `
         return article.outerHTML
     }
+
 }
 
 Routine.all = []
@@ -149,7 +151,7 @@ Exercise.all = []
 class RoutinesPage {
     constructor(routines){
         this.routines = routines
-    }
+    }    
 
     renderForm() {
         return `
@@ -179,6 +181,7 @@ class RoutinesPage {
         </section>
         `
     }
+
 }
 
 class RoutineShowPage {
@@ -205,14 +208,13 @@ class RoutineShowPage {
         `
     }
 
-    
 }
 
 // Event Listeners 
 document.addEventListener('DOMContentLoaded', () => {
     let root = document.getElementById('root')
     root.innerHTML = loadingGif()
-    Routine.getAll().then(routine => {
+    Routine.getAll().then(routines => {
         root.innerHTML = new RoutinesPage(routines).render()
     })
     document.addEventListener('click', (e) => {
@@ -237,6 +239,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 })
         }
     })
+
 })
 
 const loadingGif = () => {
