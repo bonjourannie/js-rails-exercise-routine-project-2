@@ -33,7 +33,7 @@ class RoutineAPI {
             })
     }
     static createRoutine(routineAttributes) {
-        return fetch(`${RoutineAPI.base_url}/routines`, {
+        return fetch(`${base_url}/routines`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -104,14 +104,11 @@ class Routine {
         let article = document.createElement('article')
         article.className = "fl w-100 w-50-m  w-25-ns pa2-ns"
         article.dataset['routine_id'] = this.id 
-        article.innerHTML = `
-        <div class="aspect-ratio aspect-ratio--1x1">
-        class="db bg-center cover aspect-ratio--object" />
-      </div>
-      <a href="#0" class="ph2 ph0-ns pb3 link db">
-        <h3 class="f5 f4-ns mb0 black-90">${this.title}</h3>
-      </a>
-      <p><a href="#/routines/${this.id}" class="routineShow ba1 pa2 bg-moon-gray link" data-routineid="${this.id}">Routine Details</a></p>
+        article.innerHTML = `  
+        <a href="#0" class="ph2 ph0-ns pb3 link db">
+            <h3 class="f5 f4-ns mb0 black-90">${this.title}</h3>
+        </a>
+        <p><a href="#/routines/${this.id}" class="routineShow ba1 pa2 bg-moon-gray link" data-routineid="${this.id}">Routine Details</a></p>
         `
         return article.outerHTML
     }
@@ -219,7 +216,7 @@ document.addEventListener('DOMContentLoaded', () => {
     })
     document.addEventListener('click', (e) => {
         if(e.target.matches('.routineShow')) {
-            let routine = Routine.findById(e.target.data.routineId)
+            let routine = Routine.findById(e.target.data.routine_id)
             routine.getRoutineDetails().then(routine => {
                 root.innerHTML = new RoutinesShowPage(routine).render()
             })
