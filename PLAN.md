@@ -73,13 +73,13 @@ To support our App, we'll need 4 API endpoints.
 get '/routines', to: 'routines#index' 
 get '/routines/:id', to: 'routines#show' 
 post '/routines', to: 'routines#create' 
-post '/routines/:routine_id/exercises', to: 'exercises#create' 
+post '/routines/:id/exercises', to: 'exercises#create' 
 ```
 We'll have a RoutineAPI class that knows how to make requests to these endpoints and return the response in JSON format. 
 - The `get '/routines'` endpoint will return an index of the routines without the exercises included. 
 - The `get '/routines/:id` endpoint will include routine details in addition to the routine's exercises (has_many requirement). 
 - The `post '/routines'` endpoint will allow us to create a routine and add it to our database 
-- The post `'/routines/:routine_id/exercises'` endpoint will allow to add an exercise to an existing exercise.
+- The post `'/routines/:id/exercises'` endpoint will allow to add an exercise to an existing exercise.
 
 ### Storing information (state) in our program. 
 When we make requests to our API, we'll use the responses to create instances of our Routine and Exercise classes and store them in memory (within JS variables). We'll do this
@@ -194,7 +194,7 @@ class Routine {
     renderCard() { 
         let article = document.createElement('article') 
         article.className = "fl w-100 w-50-m w-25-ns pa2-ns h6-ns" 
-        article.dataset['routine_id'] = routine.id 
+        article.dataset['id'] = routine.id 
         article.innerHTML = 
             <a href="#0" class="ph2 ph0-ns link db"> 
             <h3 class="f5 f4-ns h2-ns mb0 black-90">${this.title}</h3> 

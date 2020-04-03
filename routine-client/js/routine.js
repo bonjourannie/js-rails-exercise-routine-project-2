@@ -26,7 +26,7 @@ class RoutineAPI {
                             id, 
                             name, 
                             duration,
-                            routine_id
+                            //routine_id
                         }
                     })
                 }
@@ -34,7 +34,7 @@ class RoutineAPI {
     }
     static createRoutine(routineAttributes) {
         return fetch(`${base_url}/routines`, {
-          method: 'POST',
+          method: "POST",
           headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json'
@@ -96,14 +96,14 @@ class Routine {
 
     }
 
-    exercies(){
+    exercises(){
         return Exercise.all.filter(exercise => exercise.routine_id == this.id)
     }
 
     renderCard(){
         let article = document.createElement('article')
         article.className = "fl w-100 w-50-m  w-25-ns pa2-ns"
-        article.dataset['routine_id'] = this.id 
+        article.dataset['id'] = this.id 
         article.innerHTML = `  
         <a href="#0" class="ph2 ph0-ns pb3 link db">
             <h3 class="f5 f4-ns mb0 black-90">${this.title}</h3>
@@ -216,9 +216,9 @@ document.addEventListener('DOMContentLoaded', () => {
     })
     document.addEventListener('click', (e) => {
         if(e.target.matches('.routineShow')) {
-            let routine = Routine.findById(e.target.data.routine_id)
+            let routine = Routine.findById(e.target.dataset.routineid)
             routine.getRoutineDetails().then(routine => {
-                root.innerHTML = new RoutinesShowPage(routine).render()
+                root.innerHTML = new RoutineShowPage(routine).render()
             })
         }
         if (e.target.matches('.routineIndex')) {
