@@ -235,7 +235,17 @@ document.addEventListener('DOMContentLoaded', () => {
                     document.querySelector('#routines').insertAdjacentHTML('beforeend', routine.renderCard())
                 })
         }
+        if (e.target.matches('.createTrack')) {
+            let formData = {}
+            e.target.querySelectorAll('input').forEach(input => {
+                Exercise.create(formData)
+                .then(ecercise => {
+                    document.querySelector('#exercises').insertAdjacentHTML('beforeend', exercise.renderCard())
+                })
+            })
+        }
     })
+    
 
 })
 
