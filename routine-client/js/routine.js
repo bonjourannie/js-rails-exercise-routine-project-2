@@ -26,7 +26,7 @@ class RoutineAPI {
                             id, 
                             name, 
                             duration,
-                            //routine_id
+                            routine_id
                         }
                     })
                 }
@@ -89,20 +89,20 @@ class Routine {
         })
     }
 
-    save () {
+    save() {
         Routine.all.push(this)
         return this
     }
 
     getRoutineDetails(){
         if(this.exercises().length === 0) {
-        return RoutineAPI.getRoutineShow(this.id)
-            .then(({exercises}) => {
-                exercises.map(exerciseAttributes => Exercise.findOrCreateBy(exerciseAttributes))
-            return this
-            })
+            return RoutineAPI.getRoutineShow(this.id)
+                .then(({exercises}) => {
+                    exercises.map(exerciseAttributes => Exercise.findOrCreateBy(exerciseAttributes))
+                    return this
+                })
         } else {
-        return Promise.resolve(this)
+            return Promise.resolve(this)
         }
 
     }
@@ -139,6 +139,13 @@ class Exercise {
     static findOrCreateBy(attributes) {
         let found = Exercise.all.find(exercise => exercise.id == attributes.id)
         return found ? found : new Exercise(attributes).save()
+    }
+
+    static create(exerciseAttributes){
+        return RoutineAPI.createExercise(exerciseAttributes)
+            .then(exerciseJSON => {
+            return new Exercise(exerciseJSON).save()
+        })
     }
 
     save(){
