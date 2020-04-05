@@ -42,7 +42,18 @@ class RoutineAPI {
           body: JSON.stringify(routineAttributes)
         })
           .then(res => res.json())
-      }
+    }
+
+    static createExercise(exerciseAttributes) {
+        return fetch(`${base_url}/exercises`, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify(exerciseAttributes)
+        }).then(res => res.json())
+    }
     
 }
 
