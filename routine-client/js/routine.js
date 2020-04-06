@@ -21,7 +21,7 @@ class RoutineAPI {
                 return {
                     id, 
                     title,
-                    exercises: included.map(({id, attributes: {name, duration}}) => {
+                    exercises: included.map(({id, attributes: {name, duration, routine_id}}) => {
                         return {
                             id, 
                             name, 
@@ -158,6 +158,9 @@ class Exercise {
         <li>${this.name}</li>
       `
     }
+    //do I need renderExerciseCard akin to renderCard() in Routines? 
+    //I think it's covered in RoutineShowPage
+    
 
 }
 
@@ -189,7 +192,7 @@ class RoutinesPage {
 
     render() {
         return `
-        <h1>Workout RoutinesPage</h1>
+        <h1>Workout Routines Page</h1>
         ${this.renderForm()}
         <section id="routines">
             ${this.renderList()}
@@ -204,8 +207,8 @@ class RoutineShowPage {
         this.routine = routine
     }
 
+    //iterate over exercises & add a list item to the ul for each one using appendChild        
     renderExerciseList(){
-        //iterate over exercises & add a list item to the ul for each one using appendChild
         let ul = document.createElement('ul')
         ul.id = "exerciseList"
         this.routine.exercises().forEach(exercise => {
@@ -247,17 +250,18 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault()
         if(e.target.matches('.addRoutine')) {
             let formData = {}
-            e.target.querySelectorAll('input[type="text]').forEach(input => formData[input.id] = input.value)
-            Routine.create(formData)
+            e.target.querySelectorAll('input[type="text"]').forEach(input => formData[input.id] = input.value)
+            //debugger
+            Routine.create({routine:formData})
                 .then(routine => {
                     document.querySelector('#routines').insertAdjacentHTML('beforeend', routine.renderCard())
                 })
         }
-        if (e.target.matches('.createTrack')) {
+        if (e.target.matches('.createExercise')) {
             let formData = {}
             e.target.querySelectorAll('input').forEach(input => {
-                Exercise.create(formData)
-                .then(ecercise => {
+            Exercise.create({exercise:formData})
+                .then(exercise => {
                     document.querySelector('#exercises').insertAdjacentHTML('beforeend', exercise.renderCard())
                 })
             })
