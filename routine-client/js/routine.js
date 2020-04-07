@@ -148,6 +148,22 @@ class Exercise {
         })
     }
 
+    renderExerciseCard(){
+        let article = document.createElement('article')
+        article.className = "fl w-100 w-50-m  w-25-ns pa2-ns"
+        article.dataset['id'] = this.id 
+        article.innerHTML = `  
+        <a href="#0" class="ph2 ph0-ns pb3 link db">
+            <p class="f5 f4-ns mb0 black-90">${this.name}</p>
+        </a>
+        `
+        return article.outerHTML
+    }
+
+    routine() {
+        return Routine.findById(this.routineId)
+    }
+
     save(){
         Exercise.all.push(this)
         return this
@@ -159,7 +175,7 @@ class Exercise {
       `
     }
     //do I need renderExerciseCard akin to renderCard() in Routines? 
-    //I think it's covered in RoutineShowPage
+    //I think it's covered in RoutineShowPage?
     
 
 }
@@ -217,12 +233,26 @@ class RoutineShowPage {
         return ul.outerHTML
     }
 
+    addExercise() {
+        return `
+            <form class="addExercise">
+                <h3>Add Exercise</h3>
+                <p>
+                    <label class="db">Exercise Name</label>
+                    <input type="text" name="name" id="name" />
+                </p>
+                <input type="submit" value="Add Exercise" />
+            </form>
+        `
+    }
+
     render(){
         return `
         <div class="ph2 ph0-ns pb3 link db">
           <h3 class="f5 f4-ns mb0 black-90">${this.routine.title}</h3>
         </div>
         ${this.renderExerciseList()}
+        ${this.addExercise()}
         `
     }
 
@@ -251,20 +281,21 @@ document.addEventListener('DOMContentLoaded', () => {
         if(e.target.matches('.addRoutine')) {
             let formData = {}
             e.target.querySelectorAll('input[type="text"]').forEach(input => formData[input.id] = input.value)
-            //debugger
+            
             Routine.create({routine:formData})
                 .then(routine => {
                     document.querySelector('#routines').insertAdjacentHTML('beforeend', routine.renderCard())
                 })
         }
-        if (e.target.matches('.createExercise')) {
+        if (e.target.matches('.addExercise')) {
             let formData = {}
-            e.target.querySelectorAll('input').forEach(input => {
+            e.target.querySelectorAll('input[type="text"]').forEach(input => formData[input.id] = input.value)
+            //debugger
             Exercise.create({exercise:formData})
                 .then(exercise => {
-                    document.querySelector('#exercises').insertAdjacentHTML('beforeend', exercise.renderCard())
+                    document.querySelector('#exercises').insertAdjacentHTML('beforeend', exercise.renderExerciseCard())
                 })
-            })
+            
         }
     })
     
