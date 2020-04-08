@@ -151,7 +151,7 @@ class Exercise {
     renderExerciseCard(){
         let article = document.createElement('article')
         article.className = "fl w-100 w-50-m  w-25-ns pa2-ns"
-        article.dataset['id'] = this.id 
+        article.dataset['routineid'] = this.routine_id 
         article.innerHTML = `  
         <a href="#0" class="ph2 ph0-ns pb3 link db">
             <p class="f5 f4-ns mb0 black-90">${this.name}</p>
@@ -174,8 +174,7 @@ class Exercise {
         <li>${this.name}</li>
       `
     }
-    //do I need renderExerciseCard akin to renderCard() in Routines? 
-    //I think it's covered in RoutineShowPage?
+
     
 
 }
@@ -228,7 +227,7 @@ class RoutineShowPage {
         let ul = document.createElement('ul')
         ul.id = "exerciseList"
         this.routine.exercises().forEach(exercise => {
-            ul.insertAdjacentElement('beforeend', exercise.render())
+            ul.insertAdjacentHTML('beforeend', exercise.render())
         })
         return ul.outerHTML
     }
@@ -236,6 +235,7 @@ class RoutineShowPage {
     addExercise() {
         return `
             <form class="addExercise">
+            <input type="text" style="display:none" id="routine_id" value="${this.routine.id}">
                 <h3>Add Exercise</h3>
                 <p>
                     <label class="db">Exercise Name</label>
@@ -293,7 +293,7 @@ document.addEventListener('DOMContentLoaded', () => {
             //debugger
             Exercise.create({exercise:formData})
                 .then(exercise => {
-                    document.querySelector('#exercises').insertAdjacentHTML('beforeend', exercise.renderExerciseCard())
+                    document.querySelector('#exerciseList').insertAdjacentHTML('beforeend', exercise.render())
                 })
             
         }
